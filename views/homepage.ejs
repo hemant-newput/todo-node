@@ -1,0 +1,62 @@
+<%- include('./partials/header')%>
+
+<body style="background-color: aliceblue;">
+    <a class="btn btn-success json" href="/json">To View Json of all data</a>
+    <a class="btn btn-success json2" href="/page/1">Pagenation</a>
+
+    <ul class="list-group">
+        <% users.forEach((user)=>{ %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a class="btn btn-primary sideList" href="/user/<%= user%>"><%=user%></a>
+        </li>
+        <% })%>
+    </ul>
+
+
+    <h1 class="d-flex justify-content-center"><a href="/">Here is a todo list</a></h1>
+    <img src="/todo.jpg" alt="There is upposed to be an icon">
+
+    <form name="form1" class="form-class" action="/new" method="POST">
+        <input type="number" name="newTodoId" placeholder="Enter a Id">
+        <input type="text" name="newTodoTask" placeholder="Enter a todo">
+        <input type="text" name="user" placeholder="Enter User">
+        <button class="btn btn-primary">Click to add</button>
+    </form>
+
+    <div class="content-container">
+        <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th></th>
+                <th scope="col">Task</th>
+                <th scope="col">User</th>
+                <th scope="col">Handle</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% todos.forEach((todo)=>{ %>
+              <tr>
+                <form name="form2" action="/update" method="post">
+                <td><h4><%=todo.todo_id%></h4></td>
+                <td><input style="display: none;" type="number" name="todo_id" value="<%=todo.todo_id%>"></td>
+                <td><input type="text" name="updatedTodo" value="<%=todo.name%>"></td>
+                <td><%=todo.user%></td>
+                <td><a class="btn btn-primary" href="/delete/<%= todo.todo_id%>">Delete</a></td>
+                <td><button class="btn btn-danger">Update </button></td>
+                </form>  
+            </tr>
+            <% }) %>
+            </tbody>
+          </table>
+    </div>
+    <%-include('./partials/nav')%>
+    <div class="pagenation"> 
+      <%for (var i=1;i<4;i++){%>
+    <a href="/page/<%=i%>"><%=i%></a>
+    <%}%>
+</div>
+    <%- include('./partials/footer')%>
+</body>
+</html>
